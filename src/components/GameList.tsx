@@ -1,16 +1,6 @@
-type Game = {
-    id: number;
-    title: string;
-    thumbnail: string;
-    short_description: string;
-    game_url: string;
-    genre: string;
-    platform: string;
-    publisher: string;
-    developer: string;
-    release_date: string;
-    freetogame_profile_url: string;
-};
+import Grid from '@mui/material/Unstable_Grid2';
+import GameCard from './GameCard.tsx';
+import { Game } from '../gameTypes.ts';
 
 interface GameListProps {
     games: Game[];
@@ -18,11 +8,11 @@ interface GameListProps {
 
 function GameList({ games }: GameListProps) {
     return (
-        <div>
-            {games.map((game) => {
-                return <p key={game.id}>{game.title}</p>;
-            })}
-        </div>
+        <Grid container spacing={2} marginTop={3}>
+            {games.map((game) => (
+                <GameCard key={game.id} game={game} />
+            ))}
+        </Grid>
     );
 }
 
