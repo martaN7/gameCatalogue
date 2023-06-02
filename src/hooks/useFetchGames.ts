@@ -27,7 +27,6 @@ export function useFetchGames({ platform }: useFetchGamesProps) {
         const response = await axios({
             method: 'GET',
             url: `https://${API_HOST}/api/games`,
-            // url: '/games',
             headers: {
                 'X-RapidAPI-Key': API_KEY,
                 'X-RapidAPI-Host': API_HOST,
