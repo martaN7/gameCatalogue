@@ -7,7 +7,6 @@ function App() {
         <>
             <RouterProvider router={router} />
             <CssBaseline />
-            <h1>Game Catalogue</h1>
         </>
     );
 }

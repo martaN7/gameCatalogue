@@ -1,9 +1,10 @@
 import { createBrowserRouter } from 'react-router-dom';
+import GameListContainer from './components/GameListContainer.tsx';
 
 export const router = createBrowserRouter([
     {
         path: '/',
-        element: <h1>Home</h1>,
+        element: <GameListContainer />,
     },
     {
         path: '/games/:gameID',
