@@ -8,7 +8,7 @@ import {
     CardMedia,
     Typography,
 } from '@mui/material';
-import { Game } from '../gameTypes.ts';
+import { Game } from '../types.ts';
 import { Link } from 'react-router-dom';
 
 interface GameCardProps {
@@ -40,6 +40,7 @@ function GameCard({ game }: GameCardProps) {
                             {game.title}
                         </Typography>
                         <Typography variant="body2" color="text.secondary">
+                            {game.platform}
                             {game.short_description}
                         </Typography>
                     </CardContent>

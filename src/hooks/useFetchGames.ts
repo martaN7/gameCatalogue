@@ -1,27 +1,24 @@
 import axios from 'axios';
 import { API_HOST, API_KEY } from '../constants.ts';
 import { useEffect, useState } from 'react';
+import { filterTypes } from '../types.ts';
 
 const localcache = {};
 
-interface useFetchGamesProps {
-    platform: string;
-}
-
-export function useFetchGames({ platform }: useFetchGamesProps) {
+export function useFetchGames({ platform, sortBy, genre }: filterTypes) {
     const [games, setGames] = useState([]);
     const [error, setError] = useState('');
 
     useEffect(() => {
         const controller = new AbortController();
 
-        if (localcache[`${platform}`]) {
-            setGames(localcache[`${platform}`]);
+        if (localcache[`${platform}${sortBy}${genre}`]) {
+            setGames(localcache[`${platform}${sortBy}${genre}`]);
         } else {
             getGames(controller.signal);
         }
         return () => controller.abort();
-    }, [platform]);
+    }, [platform, sortBy, genre]);
 
     async function getGames(signal) {
         const response = await axios({
@@ -31,12 +28,12 @@ export function useFetchGames({ platform }: useFetchGamesProps) {
                 'X-RapidAPI-Key': API_KEY,
                 'X-RapidAPI-Host': API_HOST,
             },
-            params: { platform },
+            params: { platform, category: genre, 'sort-by': sortBy },
             signal,
         });
         if (response.data.status !== 0) {
-            localcache[`${platform}`] = response.data;
-            setGames(localcache[`${platform}`]);
+            localcache[`${platform}${sortBy}${genre}`] = response.data;
+            setGames(localcache[`${platform}${sortBy}${genre}`]);
         } else {
             setGames([]);
         }

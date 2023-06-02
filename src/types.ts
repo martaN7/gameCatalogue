@@ -11,3 +11,9 @@ export type Game = {
     release_date: string;
     freetogame_profile_url: string;
 };
+
+export interface filterTypes {
+    platform: string;
+    sortBy: string;
+    genre?: string;
+}
