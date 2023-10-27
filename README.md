@@ -3,7 +3,7 @@
 A catalogue of free online games. You can browse games by genre and platform and display its details.
 
 
-## Tech stack
+## Build with:
 - Vite
 - React + Typescript
 - MUI
