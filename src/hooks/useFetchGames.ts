@@ -15,7 +15,15 @@ export function useFetchGames({ platform, sortBy, genre }: filterTypes) {
         if (localcache[`${platform}${sortBy}${genre}`]) {
             setGames(localcache[`${platform}${sortBy}${genre}`]);
         } else {
-            getGames(controller.signal);
+            getGames(controller.signal)
+                .then((data) => {
+                    localcache[`${platform}${sortBy}${genre}`] = data;
+                    setGames(localcache[`${platform}${sortBy}${genre}`]);
+                })
+                .catch((error) => {
+                    setGames([]);
+                    setError(error);
+                });
         }
         return () => controller.abort();
     }, [platform, sortBy, genre]);
@@ -31,12 +39,7 @@ export function useFetchGames({ platform, sortBy, genre }: filterTypes) {
             params: { platform, category: genre, 'sort-by': sortBy },
             signal,
         });
-        if (response.data.status !== 0) {
-            localcache[`${platform}${sortBy}${genre}`] = response.data;
-            setGames(localcache[`${platform}${sortBy}${genre}`]);
-        } else {
-            setGames([]);
-        }
+        return response.data;
     }
 
     return { games, error };
