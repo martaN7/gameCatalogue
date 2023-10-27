@@ -1,5 +1,11 @@
 import Grid from '@mui/material/Unstable_Grid2';
-import { FormControl, InputLabel, MenuItem, Select } from '@mui/material';
+import {
+    FormControl,
+    InputLabel,
+    MenuItem,
+    Select,
+    SelectChangeEvent,
+} from '@mui/material';
 import { GENRES, PLATFORMS, SORT_BY } from '../filterConstants.ts';
 import React, { useState } from 'react';
 import { filterTypes } from '../types.ts';
@@ -13,17 +19,17 @@ function GameFilters({ onFilter }: GameFiltersProps) {
     const [genre, setGenre] = useState(GENRES[0].value);
     const [sortBy, setSortBy] = useState(SORT_BY[0].value);
 
-    function handlePlatform(e) {
+    function handlePlatform(e: SelectChangeEvent) {
         setPlatform(e.target.value);
         onFilter((prevState) => ({ ...prevState, platform: e.target.value }));
     }
 
-    function handleGenre(e) {
+    function handleGenre(e: SelectChangeEvent) {
         setGenre(e.target.value);
         onFilter((prevState) => ({ ...prevState, genre: e.target.value }));
     }
 
-    function handleSortBy(e) {
+    function handleSortBy(e: SelectChangeEvent) {
         setSortBy(e.target.value);
         onFilter((prevState) => ({ ...prevState, sortBy: e.target.value }));
     }
