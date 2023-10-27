@@ -1,12 +1,12 @@
 import axios from 'axios';
 import { API_HOST, API_KEY } from '../constants.ts';
 import { useEffect, useState } from 'react';
-import { filterTypes } from '../types.ts';
+import { filterTypes, Game } from '../types.ts';
 
-const localcache = {};
+const localcache: { [key: string]: Game[] } = {};
 
 export function useFetchGames({ platform, sortBy, genre }: filterTypes) {
-    const [games, setGames] = useState([]);
+    const [games, setGames] = useState<Game[] | null>([]);
     const [error, setError] = useState('');
 
     useEffect(() => {
@@ -20,7 +20,7 @@ export function useFetchGames({ platform, sortBy, genre }: filterTypes) {
         return () => controller.abort();
     }, [platform, sortBy, genre]);
 
-    async function getGames(signal) {
+    async function getGames(signal: AbortSignal) {
         const response = await axios({
             method: 'GET',
             url: `https://${API_HOST}/api/games`,
